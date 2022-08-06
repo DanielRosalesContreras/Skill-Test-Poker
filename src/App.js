@@ -25,12 +25,6 @@ export default function App() {
         D: [],
         S: [],
       }
-      for (let i = 0; i < SUIT_SIZE; i++) {
-        table.H.push(null)
-        table.S.push(null)
-        table.D.push(null)
-        table.C.push(null)
-      }
 
       let rank = ''
       let suit = ''
@@ -60,11 +54,6 @@ export default function App() {
         }
       });
       
-      table.H = [...table.H.filter(Boolean)]
-      table.S = [...table.S.filter(Boolean)]
-      table.D = [...table.D.filter(Boolean)]
-      table.C = [...table.C.filter(Boolean)]
-      
       const boardAux = [];
       table.H.forEach(e => {boardAux.push(<Card className="card-image" key={e.code} image={e.image} />)});
       table.S.forEach(e => {boardAux.push(<Card className="card-image" key={e.code} image={e.image} />)});
@@ -79,7 +68,6 @@ export default function App() {
   const drawCards = async(deckId, qCount) => {
     setTimeout(async () => {
       const card = await api.getCard(deckId);
-      console.log(card.cards[0].code);
       setCards(drawnCards => [...drawnCards, card.cards[0]]);
       setBoard(board => [...board, <Card className="card-image" key={card.cards[0].code} image={card.cards[0].image} />]);
       if(card.cards[0].code.charAt(0) === 'Q') qCount++
@@ -106,7 +94,6 @@ export default function App() {
     let card = null;
 
     card = await api.getCard(deckAux.deck_id);
-    console.log(card.cards[0].code);
     
     setCards(drawnCards => [...drawnCards, card.cards[0]]);
     setBoard(board => [...board, <Card className="card-image" key={card.cards[0].code} image={card.cards[0].image} />]);
